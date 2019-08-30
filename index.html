@@ -5,15 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <!-- 加载 normalize 初始化库 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
   <!-- 加载 tailwindcss 样式 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.0.5/components.min.css" integrity="sha256-LSQP3MbpDJypSUMHv6f7Zsdgd70/9jgNlSp+azQRdmg=" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.0.5/utilities.min.css" integrity="sha256-sYaiE9aakpKVjJkVHf8a3mLOX6rTHxp2zMOJzXSH+Vo=" crossorigin="anonymous" />
+  <style>
+    .octicon{ fill: currentColor; }
+    #main { -webkit-column-count: 5; column-count: 5; -webkit-column-gap: 0; column-gap: 0;}
+    .box { padding: 7px; box-sizing: border-box; width: 256px; }
+  </style>
 </head>
-<body>
+<body class="bg-gray-900">
   <div id="app">
-
+    <div class="container mx-auto container mx-auto">
+      <nav class="flex items-center justify-between flex-wrap p-6">
+        <div class="flex items-center flex-shrink-0 text-white mr-6">
+          <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
+          <span class="font-semibold text-xl tracking-tight">996.duanzi</span>
+        </div>
+        <div class="block lg:hidden">
+          <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+            <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+          </button>
+        </div>
+        <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden">
+          <div class="text-sm lg:flex-grow">
+            <!-- <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+              Docs
+            </a>
+            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+              Examples
+            </a>
+            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+              Blog
+            </a> -->
+          </div>
+          <div>
+            <a class="text-white" href="https://github.com/" target="_blank">
+              <svg class="octicon" height="32" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true">
+                <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div id="gallery" class="container mx-auto container mx-auto py-4">
+      <!-- 图片渲染区域 -->
+    </div>
   </div>
   <!-- Polyfill -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.4.4/polyfill.min.js" integrity="sha256-lu1gm0Fb5u5n6tuNLefOZNE96ckovOjhNzvsl+Iz50w=" crossorigin="anonymous"></script>
@@ -26,10 +64,10 @@
     window.fetch(API)
       .then((response) => response.json())
       .then((data) => {
-        document.querySelector('#app').innerHTML = 
+        document.querySelector('#gallery').innerHTML = 
           data.tree.filter((item, key) => item.path.split('/')[0] === FOLDER && item.path.split('/').length === 2)
             .map((item, key) => { return { ...item, src: SRC + item.path } })
-            .map((item, key) => `<img src="${item.src}" alt="${item.path}" />`)
+            .map((item, key) => `<img class="shadow m-4 w-64" src="${item.src}" alt="${item.path}" />`)
             .reduce((c, v) => c + v)
       })
   </script>
