@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- 加载 normalize 初始化库 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+  <!-- 加载 tailwindcss 样式 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.0.5/components.min.css" integrity="sha256-LSQP3MbpDJypSUMHv6f7Zsdgd70/9jgNlSp+azQRdmg=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.0.5/utilities.min.css" integrity="sha256-sYaiE9aakpKVjJkVHf8a3mLOX6rTHxp2zMOJzXSH+Vo=" crossorigin="anonymous" />
+</head>
+<body>
+  <div id="app">
+
+  </div>
+  <!-- Polyfill -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.4.4/polyfill.min.js" integrity="sha256-lu1gm0Fb5u5n6tuNLefOZNE96ckovOjhNzvsl+Iz50w=" crossorigin="anonymous"></script>
+  <script src=https://cdn.jsdelivr.net/npm/promise-polyfill@8.1/dist/polyfill.min.js></script>
+  <script src=https://cdn.jsdelivr.net/npm/whatwg-fetch@3.0/dist/fetch.umd.min.js></script>
+  <script>
+    const API = 'https://api.github.com/repos/Turkyden/996.duanzi/git/trees/master?recursive=1&_=1567132199324';
+    const SRC = 'https://raw.githubusercontent.com/Turkyden/996.duanzi/master/';
+    const FOLDER = 'source';
+    window.fetch(API)
+      .then((response) => response.json())
+      .then((data) => {
+        document.querySelector('#app').innerHTML = 
+          data.tree.filter((item, key) => item.path.split('/')[0] === FOLDER && item.path.split('/').length === 2)
+            .map((item, key) => { return { ...item, src: SRC + item.path } })
+            .map((item, key) => `<img src="${item.src}" alt="${item.path}" />`)
+            .reduce((c, v) => c + v)
+      })
+  </script>
+</body>
+</html>
